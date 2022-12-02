@@ -17,7 +17,7 @@ var accessLogStream = fs.createWriteStream(
   }
 );
 
-app.use(morgan('combined', { stream: accessLogStream }));
+app.use(logger('combined', { stream: accessLogStream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/views'));
