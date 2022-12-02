@@ -19,7 +19,7 @@ const app = express();
 
 // app.use(logger('combined', { stream: accessLogStream }));
 
-app.use(morgan('combined'));
+app.use(logger('combined'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
