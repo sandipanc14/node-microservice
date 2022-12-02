@@ -11,7 +11,7 @@ const app = express();
 
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(
-  'node-microservice-output/access.log',
+  '/node-microservice-output/access.log',
   {
     flags: 'a',
   }
