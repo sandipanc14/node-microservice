@@ -5,6 +5,7 @@ services:
   api:
     image: node/sample-microservice
     build: .
+    container_name: node-sample-microservice
     ports:
       - 3000:3000
     environment:
