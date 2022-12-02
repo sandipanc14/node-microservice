@@ -1,15 +1,14 @@
-FROM node:18
+FROM node:alpine
 
 # Create app directory
-RUN mkdir /app
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 #Bundle app source
-COPY . /app
+COPY . .
 
 # Expose the service port
 EXPOSE 3000

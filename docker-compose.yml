@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+
+  # NodeJS Service
+  api:
+    image: node/sample-microservice
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+    volumes:
+      - node-microservice-input: /home/appadmin/sandipan/node-microservice-input-data
+      - node-microservice-output: /home/appadmin/sandipan/node-microservice-output-data
+
+volumes:
+  node-microservice-input: {}
+  node-microservice-output: {}
