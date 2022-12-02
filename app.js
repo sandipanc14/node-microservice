@@ -10,14 +10,14 @@ const itemsRouter = require('./routers/items.router');
 const app = express();
 
 // create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(
-  '/node-microservice-output/access.log',
-  {
-    flags: 'a',
-  }
-);
+// var accessLogStream = fs.createWriteStream(
+//   '/node-microservice-output/access.log',
+//   {
+//     flags: 'a',
+//   }
+// );
 
-app.use(logger('combined', { stream: accessLogStream }));
+// app.use(logger('combined', { stream: accessLogStream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/views'));
