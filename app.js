@@ -17,20 +17,7 @@ app.use(express.static(__dirname + '/views'));
 app.set('view engine', 'ejs');
 
 app.use(cors());
-
-app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      upgradeInsecureRequests: [],
-    },
-  })
-);
-app.use(
-  helmet.crossOriginOpenerPolicy({
-    policy: 'unsafe-none',
-  })
-);
+// app.use(helmet());
 
 app.use('/', indexRouter);
 app.use('/items', itemsRouter);
