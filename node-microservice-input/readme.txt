@@ -1,0 +1,1 @@
+This folder is used to to keep the source files like environment properties etc.
