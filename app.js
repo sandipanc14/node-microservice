@@ -21,7 +21,9 @@ app.use(cors());
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
-    useDefaults: false,
+    directives: {
+      upgradeInsecureRequests: [],
+    },
   })
 );
 app.use(
