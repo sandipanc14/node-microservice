@@ -7,7 +7,6 @@ function config() {
       `${appRoot}/node-microservice-input/application-config.json`
     );
     const appConfigJson = JSON.parse(jsonString);
-    console.log(appConfigJson);
     if (appConfigJson) {
       for (let prop in appConfigJson) {
         process.env[prop] = appConfigJson[prop];

@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const appRoot = require('app-root-path');
-const logger = require('./config/logger');
+const logger = require('./config/logger.config');
 const httpLogger = require('morgan');
+const configMiddleware = require('./middlewares/config.middleware');
 
 const indexRouter = require('./routers/index.router');
 const itemsRouter = require('./routers/items.router');
@@ -20,8 +21,8 @@ app.set('view engine', 'ejs');
 app.use(cors());
 app.use(helmet());
 
-app.use('/', indexRouter);
-app.use('/items', itemsRouter);
+app.use('/', configMiddleware, indexRouter);
+app.use('/items', configMiddleware, itemsRouter);
 
 // Handle body-parser errors
 app.use((err, req, res, next) => {

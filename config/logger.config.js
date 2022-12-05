@@ -1,5 +1,6 @@
 const appRoot = require('app-root-path');
 const winston = require('winston');
+const configMiddleware = require('../middlewares/config.middleware');
 
 // define the custom settings for each transport (file, console)
 const options = {
@@ -15,7 +16,7 @@ const options = {
     ),
   },
   console: {
-    level: 'debug',
+    level: process.env.LOG_LEVEL || 'info',
     handleExceptions: true,
     format: winston.format.combine(
       winston.format.colorize(),

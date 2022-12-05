@@ -1,6 +1,6 @@
-const appConfig = require('./config/app-config');
+const appConfig = require('./config/app.config');
 appConfig.config();
-console.log(process.env.LOG_LEVEL);
+
 const http = require('http');
 
 const app = require('./app');
