@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const appRoot = require('app-root-path');
 const logger = require('./config/logger');
 const httpLogger = require('morgan');
 
@@ -13,7 +14,7 @@ app.use(httpLogger('combined', { stream: logger.stream }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/views'));
+app.use(express.static(`${appRoot}/views`));
 app.set('view engine', 'ejs');
 
 app.use(cors());

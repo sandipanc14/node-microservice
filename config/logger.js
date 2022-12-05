@@ -3,20 +3,9 @@ const winston = require('winston');
 
 // define the custom settings for each transport (file, console)
 const options = {
-  error: {
-    level: 'error',
-    filename: `${appRoot}/node-microservice-output/error.log`,
-    handleExceptions: true,
-    maxsize: 5242880, // 5MB
-    maxFiles: 5,
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json()
-    ),
-  },
-  info: {
+  file: {
     level: process.env.LOG_LEVEL || 'info',
-    filename: `${appRoot}/node-microservice-output/combined.log`,
+    filename: `${appRoot}/node-microservice-output/out.log`,
     handleExceptions: true,
     maxsize: 5242880, // 5MB
     maxFiles: 5,
@@ -25,7 +14,7 @@ const options = {
       winston.format.json()
     ),
   },
-  debug: {
+  console: {
     level: 'debug',
     handleExceptions: true,
     format: winston.format.combine(
@@ -38,8 +27,7 @@ const options = {
 // instantiate a new Winston Logger with the settings defined above
 const logger = winston.createLogger({
   transports: [
-    new winston.transports.File(options.error),
-    new winston.transports.File(options.info),
+    new winston.transports.File(options.file),
     new winston.transports.Console(options.console),
   ],
   exitOnError: false, // do not exit on handled exceptions
