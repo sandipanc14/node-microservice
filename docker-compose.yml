@@ -11,9 +11,9 @@ services:
     environment:
       PORT: 3000
     volumes:
-      - node-microservice-input:/home/appadmin/sandipan/node-microservice-input-data
-      - node-microservice-output:/home/appadmin/sandipan/node-microservice-output-data
+      - /home/appadmin/sandipan/node-microservice-input-data:/usr/src/app/node-microservice-input
+      - /home/appadmin/sandipan/node-microservice-output-data:/usr/src/app/node-microservice-output
 
-volumes:
-  node-microservice-input: {}
-  node-microservice-output: {}
+# volumes:
+#   node-microservice-input: {}
+#   node-microservice-output: {}
