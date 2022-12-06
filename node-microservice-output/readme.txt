@@ -1,1 +1,1 @@
-This folder is used to store the generated files like log files etc.
+This folder is used to store the generated files like the log files etc.
