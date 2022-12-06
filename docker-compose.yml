@@ -13,7 +13,3 @@ services:
     volumes:
       - /home/appadmin/sandipan/node-microservice-input-data:/usr/src/app/node-microservice-input
       - /home/appadmin/sandipan/node-microservice-output-data:/usr/src/app/node-microservice-output
-
-# volumes:
-#   node-microservice-input: {}
-#   node-microservice-output: {}
