@@ -1,5 +1,0 @@
-node_modules/
-volumes/
-.dockerignore
-Dockerfile
-docker-compose.yml
