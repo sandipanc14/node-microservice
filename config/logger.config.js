@@ -6,7 +6,7 @@ const configMiddleware = require('../middlewares/config.middleware');
 const options = {
   file: {
     level: process.env.LOG_LEVEL || 'info',
-    filename: `${appRoot}/node-microservice-output/out.log`,
+    filename: `${appRoot}/volumes/logs/out.log`,
     handleExceptions: true,
     maxsize: 5242880, // 5MB
     maxFiles: 5,

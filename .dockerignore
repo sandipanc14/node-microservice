@@ -1,6 +1,5 @@
 node_modules/
-node-microservice-input/
-node-microservice-output/
+volumes/
 .dockerignore
 Dockerfile
 docker-compose.yml

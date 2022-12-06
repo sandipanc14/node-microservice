@@ -1,2 +1,2 @@
 node_modules/
-node-microservice-output/*.log
+volumes/logs/*.log

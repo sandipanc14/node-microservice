@@ -4,7 +4,7 @@ const appRoot = require('app-root-path');
 function config() {
   try {
     const jsonString = fs.readFileSync(
-      `${appRoot}/node-microservice-input/application-config.json`
+      `${appRoot}/volumes/config/application-config.json`
     );
     const appConfigJson = JSON.parse(jsonString);
     if (appConfigJson) {
