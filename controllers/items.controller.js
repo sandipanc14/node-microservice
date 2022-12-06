@@ -26,15 +26,12 @@ function getOneItem(req, res, next) {
 }
 
 function updateItem(req, res, next) {
-  // enable this code, if update data is required in req.body
-  /*
-	if (!req.body.item) {
-		return res.status(400).json({
-			message: 'invalid item data',
-			errors: { item: 'is missing' },
-		});
-	}
-	*/
+  if (!req.body.item) {
+    return res.status(400).json({
+      message: 'invalid item data',
+      errors: { item: 'is missing' },
+    });
+  }
   return res.json({ item: service.updateItem(req.item, req.body.item || {}) });
 }
 
