@@ -1,2 +1,2 @@
-./node_modules
-./node-microservice-output/*.log
+node_modules/
+node-microservice-output/*.log
