@@ -3,13 +3,11 @@ version: '3.9'
 services:
   # NodeJS Service
   api:
-    image: node/sample-microservice
+    image: ${SERVICE_DOCKER_IMAGE_NAME}
     build: .
-    container_name: node-sample-microservice
+    container_name: ${SERVICE_DOCKER_CONTAINER_NAME}
     ports:
-      - 3000:3000
-    environment:
-      PORT: 3000
+      - ${SERVICE_CONTAINER_PORT}:${SERVICE_HOST_PORT}
     volumes:
-      - /home/appadmin/sandipan/node-microservice-input-data:/usr/src/app/node-microservice-input
-      - /home/appadmin/sandipan/node-microservice-output-data:/usr/src/app/node-microservice-output
+      - ${SERVICE_INPUT_VOLUME}:${SERVICE_DOCKER_CONTAINER_WORKING_DIRECTORY}/node-microservice-input
+      - ${SERVICE_OUTPUT_VOLUME}:${SERVICE_DOCKER_CONTAINER_WORKING_DIRECTORY}/node-microservice-output
