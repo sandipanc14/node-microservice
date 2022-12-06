@@ -1,4 +1,6 @@
 ./node_modules
+./node-microservice-input
+./node-microservice-output
 .dockerignore
 Dockerfile
 docker-compose.yml
