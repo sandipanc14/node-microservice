@@ -2,5 +2,11 @@
   "APP_TITLE": "NodeJS Microservice",
   "NODE_ENV": "production",
   "PORT": 3000,
-  "LOG_LEVEL": "info"
+  "LOG_LEVEL": "info",
+  "KAFKA_HOST_URL": "172.20.1.230:29092, 172.20.1.230:39092, 172.20.1.230:49092",
+  "KAFKA_PRODUCER_OR_CONSUMER": "BOTH",
+  "KAFKA_TOPICS": {
+    "SET_ITEM": "set.item",
+    "GET_ITEM": "get.item"
+  }
 }

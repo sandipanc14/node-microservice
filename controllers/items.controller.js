@@ -1,7 +1,8 @@
-const service = require('../services/items.service');
+const itemsService = require('../services/items.service');
+const kafkaProducerService = require('../services/kafka/producer.service');
 
 function findItem(req, res, next, id) {
-  const item = service.findItem(id);
+  const item = itemsService.findItem(id);
   if (!item) {
     return res.status(404).json({
       message: 'invalid item',
@@ -13,15 +14,43 @@ function findItem(req, res, next, id) {
 }
 
 function createItem(req, res, next) {
-  const newItem = service.createItem();
+  const newItem = itemsService.createItem();
+  const kafkaPayload = {
+    method: 'createItem',
+    data: {
+      item: newItem,
+    },
+  };
+  kafkaProducerService.produce(
+    process.env['KAFKA_TOPICS.SET_ITEM'],
+    kafkaPayload
+  );
   return res.json({ item: newItem });
 }
 
 function getAllItems(req, res, next) {
-  return res.json({ items: service.getAllItems() });
+  const kafkaPayload = {
+    method: 'getAllItems',
+    data: { items: itemsService.getAllItems() },
+  };
+  kafkaProducerService.produce(
+    process.env['KAFKA_TOPICS.GET_ITEM'],
+    kafkaPayload
+  );
+  return res.json({ items: itemsService.getAllItems() });
 }
 
 function getOneItem(req, res, next) {
+  const kafkaPayload = {
+    method: 'getOneItem',
+    data: {
+      item: req.item,
+    },
+  };
+  kafkaProducerService.produce(
+    process.env['KAFKA_TOPICS.GET_ITEM'],
+    kafkaPayload
+  );
   return res.json({ item: req.item });
 }
 
@@ -32,11 +61,32 @@ function updateItem(req, res, next) {
       errors: { item: 'is missing' },
     });
   }
-  return res.json({ item: service.updateItem(req.item, req.body.item || {}) });
+  const updatedData = itemsService.updateItem(req.item, req.body.item || {});
+  const kafkaPayload = {
+    method: 'updateItem',
+    data: updatedData,
+  };
+  kafkaProducerService.produce(
+    process.env['KAFKA_TOPICS.SET_ITEM'],
+    kafkaPayload
+  );
+  return res.json({
+    item: updatedData,
+  });
 }
 
 function deleteItem(req, res, next) {
-  service.deleteItem(req.item);
+  itemsService.deleteItem(req.item);
+  const kafkaPayload = {
+    method: 'deleteItem',
+    data: {
+      item: req.item,
+    },
+  };
+  kafkaProducerService.produce(
+    process.env['KAFKA_TOPICS.SET_ITEM'],
+    kafkaPayload
+  );
   return res.json({ item: req.item });
 }
 

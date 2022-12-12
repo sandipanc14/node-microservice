@@ -24,6 +24,13 @@ app.use(helmet());
 app.use('/', configMiddleware, indexRouter);
 app.use('/items', configMiddleware, itemsRouter);
 
+// Initialize Kafka Consumer
+const kafkaConsumerService = require('./services/kafka/consumer.service');
+kafkaConsumerService.consume([
+  process.env['KAFKA_TOPICS.SET_ITEM'],
+  process.env['KAFKA_TOPICS.GET_ITEM'],
+]);
+
 // Handle body-parser errors
 app.use((err, req, res, next) => {
   if (err.type === 'entity.parse.failed') {
