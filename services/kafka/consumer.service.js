@@ -69,8 +69,6 @@ const consume = async (topicNames) => {
     consumer.on('offsetOutOfRange', function (err) {
       logger.error('offsetOutOfRange:', err);
     });
-
-    return consumer;
   } catch (error) {
     logger.error('Consumer error-->', error);
   }
