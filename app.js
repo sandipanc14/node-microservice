@@ -26,14 +26,18 @@ app.use('/items', configMiddleware, itemsRouter);
 
 // Initialize Kafka Consumer
 const kafkaConsumerService = require('./services/kafka/consumer.service');
-let consumer = null;
-do {
-  consumer = kafkaConsumerService.consume([
-    process.env['KAFKA_TOPICS.SET_ITEM'],
-    process.env['KAFKA_TOPICS.GET_ITEM'],
-  ]);
-  setTimeout(() => {}, 3000);
-} while (!consumer);
+const initConsumer = async () => {
+  let consumer = null;
+  do {
+    consumer = await kafkaConsumerService.consume([
+      process.env['KAFKA_TOPICS.SET_ITEM'],
+      process.env['KAFKA_TOPICS.GET_ITEM'],
+    ]);
+    console.log(consumer);
+    setTimeout(() => {}, 3000);
+  } while (!consumer);
+};
+initConsumer();
 
 // Handle body-parser errors
 app.use((err, req, res, next) => {
