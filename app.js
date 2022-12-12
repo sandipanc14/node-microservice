@@ -25,7 +25,7 @@ app.use('/', configMiddleware, indexRouter);
 app.use('/items', configMiddleware, itemsRouter);
 
 // Initialize Kafka Consumer
-const kafkaConsumerService = require('./services/kafka/consumer.service');\
+const kafkaConsumerService = require('./services/kafka/consumer.service');
 let consumer = null;
 do {
   consumer = kafkaConsumerService.consume([
