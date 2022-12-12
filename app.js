@@ -25,11 +25,15 @@ app.use('/', configMiddleware, indexRouter);
 app.use('/items', configMiddleware, itemsRouter);
 
 // Initialize Kafka Consumer
-const kafkaConsumerService = require('./services/kafka/consumer.service');
-kafkaConsumerService.consume([
-  process.env['KAFKA_TOPICS.SET_ITEM'],
-  process.env['KAFKA_TOPICS.GET_ITEM'],
-]);
+const kafkaConsumerService = require('./services/kafka/consumer.service');\
+let consumer = null;
+do {
+  consumer = kafkaConsumerService.consume([
+    process.env['KAFKA_TOPICS.SET_ITEM'],
+    process.env['KAFKA_TOPICS.GET_ITEM'],
+  ]);
+  setTimeout(null, 3000);
+} while (!consumer);
 
 // Handle body-parser errors
 app.use((err, req, res, next) => {
