@@ -56,17 +56,13 @@ const consume = async (topicNames) => {
 
     consumer.on('error', function (err) {
       logger.error('Error:', err.stack);
-      consumer.addTopics(
-        topics,
-        function (err, added) {
-          if (added) {
-            logger.info(`Topic(s): ${topicNames.join(',')} created...`);
-          } else {
-            logger.error('Error in adding topic: ', err);
-          }
-        },
-        true
-      );
+      client.createTopics(topics, (err, res) => {
+        if (res) {
+          logger.info(`Topic(s): ${topicNames.join(',')} created...`);
+        } else {
+          logger.error('Error in adding topic: ', err);
+        }
+      });
     });
 
     consumer.on('offsetOutOfRange', function (err) {
