@@ -1,5 +1,6 @@
 const kafka = require('kafka-node');
 const fs = require('fs');
+const appRoot = require('app-root-path');
 const logger = require('../../config/logger.config');
 
 const consume = async (topicNames) => {
@@ -38,9 +39,12 @@ const consume = async (topicNames) => {
       }
 
       topics.forEach((topicData) => {
-        var writerStream = fs.createWriteStream(`${topicData.topic}.dat`, {
-          flags: 'a',
-        });
+        var writerStream = fs.createWriteStream(
+          `${appRoot}/volumes/output/${topicData.topic}.dat`,
+          {
+            flags: 'a',
+          }
+        );
         writerStream.write(JSON.stringify(message) + '\r\n', 'UTF8');
         writerStream.on('error', function (err) {
           logger.error(err.stack);
