@@ -32,7 +32,7 @@ do {
     process.env['KAFKA_TOPICS.SET_ITEM'],
     process.env['KAFKA_TOPICS.GET_ITEM'],
   ]);
-  setTimeout(null, 3000);
+  setTimeout(() => {}, 3000);
 } while (!consumer);
 
 // Handle body-parser errors
