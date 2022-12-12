@@ -39,29 +39,38 @@ const consume = async (topicNames) => {
       }
 
       topics.forEach((topicData) => {
-        var writerStream = fs.createWriteStream(
-          `${appRoot}/volumes/output/${topicData.topic}.dat`,
-          {
-            flags: 'a',
-          }
-        );
-        writerStream.write(JSON.stringify(message) + '\r\n', 'UTF8');
-        writerStream.on('error', function (err) {
-          logger.error(err.stack);
-        });
+        if (message.topic === topicData.topic) {
+          var writerStream = fs.createWriteStream(
+            `${appRoot}/volumes/output/${topicData.topic}.dat`,
+            {
+              flags: 'a',
+            }
+          );
+          writerStream.write(JSON.stringify(message) + '\r\n', 'UTF8');
+          writerStream.on('error', function (err) {
+            logger.error(err.stack);
+          });
+        }
       });
     });
 
     consumer.on('error', function (err) {
-      logger.error('Error:', err);
+      logger.error('Error:', err.stack);
+      consumer.addTopics(
+        topics,
+        function (err, added) {
+          if (added) {
+            logger.info(`Topic(s): ${topicNames.join(',')} created...`);
+          } else {
+            logger.error('Error in adding topic: ', err);
+          }
+        },
+        true
+      );
     });
 
     consumer.on('offsetOutOfRange', function (err) {
       logger.error('offsetOutOfRange:', err);
-    });
-
-    consumer.on('TopicsNotExistError', function (err) {
-      console.log('hi', err);
     });
   } catch (error) {
     logger.error('Consumer error-->', error);
