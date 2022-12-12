@@ -37,8 +37,10 @@ const consume = async (topicNames) => {
         return;
       }
 
-      topics.forEach((topic) => {
-        var writerStream = fs.createWriteStream(`${topic}.dat`, { flags: 'a' });
+      topics.forEach((topicData) => {
+        var writerStream = fs.createWriteStream(`${topicData.topic}.dat`, {
+          flags: 'a',
+        });
         writerStream.write(JSON.stringify(message) + '\r\n', 'UTF8');
         writerStream.on('error', function (err) {
           logger.error(err.stack);
@@ -52,6 +54,10 @@ const consume = async (topicNames) => {
 
     consumer.on('offsetOutOfRange', function (err) {
       logger.error('offsetOutOfRange:', err);
+    });
+
+    consumer.on('TopicsNotExistError', function (err) {
+      console.log('hi', err);
     });
   } catch (error) {
     logger.error('Consumer error-->', error);
