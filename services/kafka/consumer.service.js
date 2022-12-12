@@ -59,6 +59,7 @@ const consume = async (topicNames) => {
       client.createTopics(topics, (err, res) => {
         if (res) {
           logger.info(`Topic(s): ${topicNames.join(',')} created...`);
+          consume(topicNames);
         } else {
           logger.error('Error in adding topic: ', err);
         }
