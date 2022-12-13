@@ -6,7 +6,10 @@ const appConfig = require('../../config/app.config');
 
 const consume = async (topicNames) => {
   appConfig.config();
-  if (!isAllowedConsumer()) return;
+  if (!isAllowedConsumer()) {
+    global.isConsumerConnected = false;
+    return;
+  }
   try {
     const topics = topicNames.map((topic) => {
       return {
@@ -25,17 +28,19 @@ const consume = async (topicNames) => {
         }
       )),
       (consumer = new Consumer(client, topics, {
-        autoCommit: false,
+        autoCommit: true,
         fetchMaxWaitMs: 1000,
         fetchMaxBytes: 1024 * 1024,
         encoding: 'utf8',
-        fromOffset: true,
+        fromOffset: false, // make it true to start fetching from the specified offset for the topics
       }));
+
+    global.isConsumerConnected = true;
 
     consumer.on('message', function (message) {
       if (!isAllowedConsumer()) {
         consumer.close(() => {
-          logger.info('Consumer disconnected.');
+          global.isConsumerConnected = false;
         });
         return;
       }

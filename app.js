@@ -26,11 +26,14 @@ app.use('/items', configMiddleware, itemsRouter);
 
 // Initialize Kafka Consumer
 const kafkaConsumerService = require('./services/kafka/consumer.service');
+global.isConsumerConnected = false;
 setInterval(() => {
-  kafkaConsumerService.consume([
-    process.env['KAFKA_TOPICS.SET_ITEM'],
-    process.env['KAFKA_TOPICS.GET_ITEM'],
-  ]);
+  if (!global.isConsumerConnected) {
+    kafkaConsumerService.consume([
+      process.env['KAFKA_TOPICS.SET_ITEM'],
+      process.env['KAFKA_TOPICS.GET_ITEM'],
+    ]);
+  }
 }, 3000);
 
 // Handle body-parser errors
