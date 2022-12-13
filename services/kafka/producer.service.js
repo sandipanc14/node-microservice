@@ -28,7 +28,7 @@ const produce = async (topic, message) => {
     var sentMessage = JSON.stringify(message);
     payloads = [{ topic: topic, messages: sentMessage, partition: 0 }];
     producer.send(payloads, function (err, data) {
-      logger.info(JSON.stringify(data));
+      logger.info(`Produced message in kafka --> ${JSON.stringify(data)}`);
     });
   } catch (error) {
     logger.error('Producer error-->', error);
