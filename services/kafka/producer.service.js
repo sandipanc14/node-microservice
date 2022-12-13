@@ -1,5 +1,7 @@
 const kafka = require('kafka-node');
 const logger = require('../../config/logger.config');
+const appConfig = require('../../config/app.config');
+appConfig.config();
 
 var Producer = kafka.Producer,
   client = new kafka.KafkaClient(
@@ -20,6 +22,7 @@ producer.on('error', function (err) {
 });
 
 const produce = async (topic, message) => {
+  appConfig.config();
   if (!isAllowedProducer()) return;
   try {
     var sentMessage = JSON.stringify(message);

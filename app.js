@@ -31,7 +31,7 @@ setInterval(() => {
     process.env['KAFKA_TOPICS.SET_ITEM'],
     process.env['KAFKA_TOPICS.GET_ITEM'],
   ]);
-}, 10000);
+}, 3000);
 
 // Handle body-parser errors
 app.use((err, req, res, next) => {

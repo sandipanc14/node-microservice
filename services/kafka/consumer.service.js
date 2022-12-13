@@ -2,8 +2,10 @@ const kafka = require('kafka-node');
 const fs = require('fs');
 const appRoot = require('app-root-path');
 const logger = require('../../config/logger.config');
+const appConfig = require('../../config/app.config');
 
 const consume = async (topicNames) => {
+  appConfig.config();
   if (!isAllowedConsumer()) return;
   try {
     const topics = topicNames.map((topic) => {
