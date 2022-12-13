@@ -1,7 +1,6 @@
 let items = [];
 
 function createItem(itemData = {}) {
-  console.log(itemData);
   const newItem = { ...itemData, id: items.length + 1, lastUpdate: new Date() };
   items = [...items, newItem];
   return newItem;
